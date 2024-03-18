@@ -41,6 +41,20 @@ services:
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
       - ./docker/mysql/logs:/var/log/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  db_test:
+    image: mysql:8.3.0
+    container_name: $DB_TEST_CONTAINER_NAME
+    restart: always
+    ports:
+      - "${MYSQL_TEST_EXPOSE_PORT}:${MYSQL_TEST_PORT}"
+    environment:
+      MYSQL_ROOT_USER: $MYSQL_TEST_ROOT_USER
+      MYSQL_ROOT_PASSWORD: $MYSQL_TEST_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_TEST_DATABASE
+      MYSQL_USER: $MYSQL_TEST_USER
+      MYSQL_PASSWORD: $MYSQL_TEST_PASSWORD
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
   myadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
