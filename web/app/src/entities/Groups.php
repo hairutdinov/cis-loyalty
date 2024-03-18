@@ -95,11 +95,12 @@ class Groups
         }
     }
 
-//    public function addLot(Lots $lot): self
-//    {
-//        $this->lots[] = $lot;
-//        $lot->setBidding($this);
-//        return $this;
-//    }
+    public function removeUser(Users $user): void
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeGroup($this);
+        }
+    }
 
 }

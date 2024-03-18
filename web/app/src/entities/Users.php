@@ -96,4 +96,12 @@ class Users
             $group->addUser($this);
         }
     }
+
+    public function removeGroup(Groups $group): void
+    {
+        if ($this->groups->contains($group)) {
+            $this->groups->removeElement($group);
+            $group->removeUser($this);
+        }
+    }
 }

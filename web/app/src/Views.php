@@ -50,7 +50,34 @@ class Views
 
         $group->addUser($user);
 
-        $em->persist($group);
+        $em->flush();
+        exit();
+    }
+
+    public static function delete_user_from_group(int $user_id, int $group_id, EntityManager $em)
+    {
+        $group = $em->find(Groups::class, $group_id);
+
+        if (empty($group)) {
+            http_response_code(400);
+            echo json_encode([
+                'error' => 'Группа не найдена',
+            ]);
+            exit();
+        }
+
+        $user = $em->find(Users::class, $user_id);
+
+        if (empty($user)) {
+            http_response_code(400);
+            echo json_encode([
+                'error' => 'Пользователь не найден',
+            ]);
+            exit();
+        }
+
+        $group->removeUser($user);
+
         $em->flush();
         exit();
     }
