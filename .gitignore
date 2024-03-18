@@ -1,0 +1,18 @@
+# Global
+.*.swp
+.DS_Store
+
+# Application
+web/app/composer.lock
+web/app/vendor/
+/web/app/.phpunit.result.cache
+/web/app/composer.json.dist
+
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+/docker/mysql/data/
+/docker/mysql/logs/
+
+.env

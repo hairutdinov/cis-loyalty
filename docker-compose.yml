@@ -1,0 +1,54 @@
+version: '3.2'
+
+services:
+  php:
+    build: ./docker/php/
+    container_name: $PHP_CONTAINER_NAME
+    working_dir: /var/www/html
+    volumes:
+      - ./web:/var/www/html
+      - .env:/var/www/.env
+  composer:
+    image: "composer"
+    volumes:
+      - "./web/app:/app"
+    command: install
+  nginx:
+    build: ./docker/nginx/
+    container_name: $NGINX_CONTAINER_NAME
+    restart: always
+    ports:
+      - "${NGINX_EXPOSE_PORT}:${NGINX_PORT}"
+    volumes:
+      - ./web:/var/www/html:ro
+      - ./docker/nginx/logs:/var/log/nginx
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+  db:
+    image: mysql:8.3.0
+    container_name: $DB_CONTAINER_NAME
+    restart: always
+    ports:
+      - "${MYSQL_EXPOSE_PORT}:${MYSQL_PORT}"
+    environment:
+      MYSQL_ROOT_USER: $MYSQL_ROOT_USER
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql/
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./docker/mysql/logs:/var/log/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "${MYADMIN_EXPOSE_PORT}:${MYADMIN_PORT}"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=${MYSQL_HOST}
+    restart: always
+    depends_on:
+      - db

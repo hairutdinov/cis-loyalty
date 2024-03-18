@@ -1,0 +1,1 @@
+2024/03/18 09:43:49 [error] 22#22: *57 connect() failed (113: No route to host) while connecting to upstream, client: 172.24.0.1, server: localhost, request: "GET /api/users/1/groups HTTP/1.1", upstream: "fastcgi://172.24.0.5:9000", host: "localhost"
