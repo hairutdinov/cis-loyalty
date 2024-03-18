@@ -23,11 +23,6 @@ class Route
         return preg_match($this->pattern, $path) && $this->method == $method;
     }
 
-    public function getView(): callable
-    {
-        return $this->view;
-    }
-
     public function render($path, EntityManager $em)
     {
         $matches = [];
