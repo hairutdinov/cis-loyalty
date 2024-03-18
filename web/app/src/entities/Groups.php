@@ -91,7 +91,7 @@ class Groups
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->addGroup($this);
+//            $user->addGroup($this);
         }
     }
 
@@ -99,7 +99,7 @@ class Groups
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            $user->removeGroup($this);
+//            $user->removeGroup($this);
         }
     }
 
