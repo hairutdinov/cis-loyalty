@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use http\Client\Curl\User;
 
 #[ORM\Entity]
 #[ORM\Table(name: '`groups`')]
@@ -85,5 +86,20 @@ class Groups
 
         return $permissions;
     }
+
+    public function addUser(Users $user)
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addGroup($this);
+        }
+    }
+
+//    public function addLot(Lots $lot): self
+//    {
+//        $this->lots[] = $lot;
+//        $lot->setBidding($this);
+//        return $this;
+//    }
 
 }

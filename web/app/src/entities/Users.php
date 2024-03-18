@@ -88,4 +88,12 @@ class Users
     {
         return $this->id;
     }
+
+    public function addGroup(Groups $group)
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups->add($group);
+            $group->addUser($this);
+        }
+    }
 }
