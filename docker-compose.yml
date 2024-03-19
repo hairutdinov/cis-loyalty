@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   php:
-    build: ./docker/php/
+    image: bulatth/cns-loyalty-php:latest
     container_name: $PHP_CONTAINER_NAME
     working_dir: /var/www/html
     volumes:
