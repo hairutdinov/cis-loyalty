@@ -50,6 +50,7 @@ class Views
 
         $group->addUser($user);
 
+        http_response_code(201);
         $em->flush();
         exit();
     }
