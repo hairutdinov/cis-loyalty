@@ -55,4 +55,16 @@ class Permissions
     {
         return $this->groups;
     }
+
+    public function setId(?int $id): Permissions
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setName(?string $name): Permissions
+    {
+        $this->name = $name;
+        return $this;
+    }
 }

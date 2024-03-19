@@ -104,4 +104,16 @@ class Users
 //            $group->removeUser($this);
         }
     }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
 }
